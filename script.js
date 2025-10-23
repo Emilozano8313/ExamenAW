@@ -44,5 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
    
+    taskListContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('complete-btn')) {
+           
+            const taskElement = e.target.closest('article');
+            const taskId = Number(taskElement.dataset.id);
+
+            
+            taskElement.classList.toggle('completed');
+
+            
+            toggleTaskCompletedStorage(taskId);
+        }
+    });
+
+   
     
 });
