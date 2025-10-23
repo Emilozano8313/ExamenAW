@@ -59,5 +59,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
    
+    function showFeedback(message, color) {
+        feedbackMessage.textContent = message;
+        feedbackMessage.style.color = color;
+
+       
+        setTimeout(() => {
+            feedbackMessage.textContent = '';
+        }, 3000);
+    }
+
+   
+    function renderTask(task) {
+       
+        const taskElement = document.createElement('article');
+        taskElement.dataset.id = task.id; 
+        taskElement.classList.add(`priority-${task.priority}`);
+
+        if (task.completed) {
+            taskElement.classList.add('completed');
+        }
+
+        taskElement.innerHTML = `
+            <div>
+                <h3>${task.title}</h3>
+                <p>Fecha Límite: ${task.date} | Prioridad: ${task.priority}</p>
+            </div>
+            <button class="complete-btn">${task.completed ? 'Deshacer' : 'Completar'}</button>
+        `;
+
+        taskListContainer.appendChild(taskElement);
+    }
+
     
+    function getTasksFromStorage() {
+        let tasks;
+        if (localStorage.getItem('tasks') === null) {
+            tasks = [];
+        } else {
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        }
+        return tasks;
+    }
+
+    
+    function saveTaskToStorage(task) {
+        const tasks = getTasksFromStorage();
+        tasks.push(task);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+   
+    function loadTasks() {
+        const tasks = getTasksFromStorage();
+        tasks.forEach(task => {
+            renderTask(task);
+        });
+    }
+
+    
+    function toggleTaskCompletedStorage(id) {
+        const tasks = getTasksFromStorage();
+        
+        const updatedTasks = tasks.map(task => {
+            if (task.id === id) {
+                task.completed = !task.completed;
+            }
+            return task;
+        });
+
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
 });
