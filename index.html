@@ -26,7 +26,28 @@
         <section id="form-container">
             <h2>Añadir Nueva Tarea</h2>
             
-            
+            <form id="task-form">
+                <div>
+                    <label for="task-title">Título:</label>
+                    <input type="text" id="task-title" required>
+                </div>
+                
+                <div>
+                    <label for="task-date">Fecha Límite:</label>
+                    <input type="date" id="task-date" required>
+                </div>
+                
+                <div>
+                    <label for="task-priority">Prioridad:</label>
+                    <select id="task-priority">
+                        <option value="baja">Baja</option>
+                        <option value="media">Media</option>
+                        <option value="alta">Alta</option>
+                    </select>
+                </div>
+                
+                <button type="submit">Añadir Tarea</button>
+            </form>
             
             <p id="feedback-message"></p>
         </section>
