@@ -12,3 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
     loadTasks();
 
     
+    taskForm.addEventListener('submit', (e) => {
+        
+        e.preventDefault();
+
+        if (taskTitleInput.value === '' || taskDateInput.value === '') {
+            showFeedback('Por favor, completa todos los campos.', 'red');
+            return;
+        }
+
+        
+        const task = {
+            id: Date.now(), 
+            title: taskTitleInput.value,
+            date: taskDateInput.value,
+            priority: taskPriorityInput.value,
+            completed: false
+        };
+
+        
+        renderTask(task);
+        
+        
+        saveTaskToStorage(task);
+
+       
+        showFeedback('¡Tarea añadida con éxito!', 'green');
+
+       
+        taskForm.reset();
+    });
+
+   
+    
+});
